@@ -1,0 +1,275 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int  data;
+	struct node *prev;
+	struct node *next;
+};
+
+
+
+void insert_begin();
+void insert_middle();
+void insert_end();
+void display();
+void delete_begin();
+void delete_middle();
+void delete_end();
+
+int main()
+{   int num ;
+	struct node *n;
+	printf("Enter number of nodes: ");
+	scanf("%d",&num);
+	if(num<=0)
+	{
+	  printf("No Nodes Created!!!");
+	  return 0;
+	}
+	struct node *head=(struct node*)malloc(sizeof(struct node));
+	printf("\nEnter data: ");
+	scanf("%d",&head->data);
+	head->prev=NULL;
+	head->next=NULL;
+	struct node *tail = head;
+
+	for(int i=1; i<num; i++)
+	{
+		n=(struct node*)malloc(sizeof(struct node));
+		scanf("%d",&n->data);
+		n->prev=NULL;
+		n->next=NULL;
+		tail->next=n;
+		n->prev=tail;
+		tail=tail->next;
+
+	}
+	
+
+    int choice;
+    printf("\n1.)Insert at Begin\n2.)Insert at Middle\n3.)Insert at End\n4.)Display\n5.)Delete at Begin\n6.)Delete at Middle\n7.)Delete at End\n");
+    while(1)
+    {
+    printf("\nEnter your choice : ");
+    scanf("%d",&choice);
+    switch(choice)
+    {
+        case 1:insert_begin(&head);
+        printf("After Insertion:");
+        display(head);
+        break;
+        
+        case 2:insert_middle(&head);
+        printf("After Insertion:");
+        display(head);
+        break;
+        
+        case 3:insert_end(&head);
+        printf("After Insertion:");
+        display(head);
+        break;
+        
+        case 4:printf("The Linked List is : ");
+        display(head);
+        break;
+        
+        case 5:delete_begin(&head);
+        printf("After Deletion:");
+        display(head);
+        break;
+        
+        case 6:delete_middle(&head);
+        printf("After Deletion:");
+        display(head);
+        break;
+        
+        case 7:delete_end(&head);
+        printf("After Deletion:");
+        display(head);
+        break;
+        
+        default :printf("Program Terminated!!!");
+                return 0;
+    }
+    
+}
+
+  return 0;  
+}
+
+
+void insert_begin(struct node **head)
+{
+    int data;
+    struct node *n;
+    printf("\nEnter the data to be inserted: ");
+    scanf("%d",&data);
+    n=(struct node*)malloc(sizeof(struct node));
+    n->data=data;
+    n->next=*head;
+    n->prev=NULL;
+    (*head)->prev=n;
+    *head=n;
+    
+}
+
+
+void insert_middle(struct node **head)
+{
+     int data,pos;
+    printf("\nEnter the data & position to be inserted: ");
+    scanf("%d%d",&data,&pos);
+    struct node *p,*old;
+    p=*head;
+    old=*head;
+    struct node *n;
+    n=(struct node*)malloc(sizeof(struct node));
+    n->data=data;
+    for(int i=1;i<pos;i++)
+    {
+        old=p;
+        p=p->next;
+    }
+    old->next=n;
+    n->prev=old;
+    n->next=p;
+    p->prev=n;
+}
+
+
+
+void insert_end(struct node **head)
+{
+    
+     int data;
+    struct node *p;
+    p=*head;
+    struct node *n;
+    printf("\nEnter the data to be inserted: ");
+    scanf("%d",&data);
+    n=(struct node*)malloc(sizeof(struct node));
+    n->data=data;
+    while(p->next!=NULL)
+    p=p->next;
+    p->next=n;
+    n->prev=p;
+    n->next=NULL;
+}
+
+
+void display(struct node *n)
+{
+
+	while ( n != NULL)
+	{
+		printf ("%d ", n->data);
+		n = n->next;
+	}
+	printf ("\n");
+}
+
+
+void delete_begin(struct node **head)
+{
+	struct node *p;
+	p=*head;
+	*head=p->next;
+	if (*head != NULL)
+	{
+        (*head)->prev = NULL;
+    }
+	free(p);
+    
+}
+
+
+void delete_middle(struct node **head)
+{ 
+    int pos;
+    printf("\nEnter the position to be deleted: ");
+    scanf("%d",&pos);
+	struct node *p,*old,*s;
+	old=*head;
+	p=*head;
+	for(int i=1;i<pos;i++)
+	{
+	    old=p;
+	    p=p->next;
+	}
+	s=p->next;
+	old->next=s;
+	s->prev=old;
+	p->prev=NULL;
+	p->next=NULL;
+	free(p);
+}
+
+
+void delete_end(struct node **head)
+{
+    struct node *old,*p;
+	old=*head;
+	p=*head;
+	while(p->next!=NULL)
+	{
+	    old=p;
+	    p=p->next;
+	}
+    
+	old->next=NULL;
+	p->prev=NULL;
+	free(p);
+    
+}
+
+
+OUT[UT:
+
+Enter number of nodes: 5
+
+Enter data: 1 2 3 4 5
+
+1.)Insert at Begin
+2.)Insert at Middle
+3.)Insert at End
+4.)Display
+5.)Delete at Begin
+6.)Delete at Middle
+7.)Delete at End
+
+Enter your choice : 1
+
+Enter the data to be inserted: 0
+After Insertion:0 1 2 3 4 5 
+
+Enter your choice : 2
+
+Enter the data & position to be inserted: 7
+4
+After Insertion:0 1 2 7 3 4 5 
+
+Enter your choice : 3
+
+Enter the data to be inserted: 8
+After Insertion:0 1 2 7 3 4 5 8 
+
+Enter your choice : 4
+The Linked List is : 0 1 2 7 3 4 5 8 
+
+Enter your choice : 5
+After Deletion:1 2 7 3 4 5 8 
+
+Enter your choice : 6
+
+Enter the position to be deleted: 3
+After Deletion:1 2 3 4 5 8 
+
+Enter your choice : 7
+After Deletion:1 2 3 4 5 
+
+Enter your choice : 4
+The Linked List is : 1 2 3 4 5 
+
+Enter your choice : 9
+Program Terminated!!!
