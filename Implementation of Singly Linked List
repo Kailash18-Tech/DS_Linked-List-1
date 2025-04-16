@@ -44,10 +44,10 @@ int main()
 
     
     int choice;
-    printf("\n1.)Insert at Begin\n2.)Insert at Middle\n3.)Insert at End\n4.)Display\n5.)Delete at Begin\n6.)Delete at Middle\n7.)Delete at End\n\n");
+    printf("\n1.)Insert at Begin\n2.)Insert at Middle\n3.)Insert at End\n4.)Display\n5.)Delete at Begin\n6.)Delete at Middle\n7.)Delete at End\n");
     while(1)
     {
-    printf("Enter your choice : ");
+    printf("\nEnter your choice : ");
     scanf("%d",&choice);
     switch(choice)
     {
@@ -55,29 +55,36 @@ int main()
         printf("After Insertion:");
         display(head);
         break;
+        
         case 2:insert_middle(&head);
         printf("After Insertion:");
         display(head);
         break;
+        
         case 3:insert_end(&head);
         printf("After Insertion:");
         display(head);
         break;
+        
         case 4:display(head);
         break;
+        
         case 5:delete_begin(&head);
         printf("After Deletion:");
         display(head);
         break;
+        
         case 6:delete_middle(&head);
         printf("After Deletion:");
         display(head);
         break;
+        
         case 7:delete_end(&head);
         printf("After Deletion:");
         display(head);
         break;
-        default :printf("Program Terminated");
+        
+        default :printf("Program Terminated!!!");
                 return 0;
     }
     
@@ -90,7 +97,7 @@ int main()
 void insert_begin(struct node **head)
 {
     int ele;
-    printf("Enter the Element to be Inserted : ");
+    printf("\nEnter the Element to be Inserted : ");
     scanf("%d",&ele);
     struct node *newnode=(struct node*)malloc(sizeof(struct node));
     newnode->data=ele;
@@ -102,9 +109,9 @@ void insert_begin(struct node **head)
 void insert_middle(struct node **head)
 {
     int ele,pos;
-    printf("Enter the Element to be Inserted : ");
+    printf("\nEnter the Element to be Inserted : ");
     scanf("%d",&ele);
-    printf("Enter the Position to be Inserted : ");
+    printf("\nEnter the Position to be Inserted : ");
     scanf("%d",&pos);
 	struct node *old,*p;
 	struct node *newnode=(struct node*)malloc(sizeof(struct node));
@@ -127,7 +134,7 @@ void insert_end(struct node **head)
 {
     
     int ele;
-    printf("Enter the Element to be Inserted : ");
+    printf("\nEnter the Element to be Inserted : ");
     scanf("%d",&ele);
 	struct node *temp=*head;
 	struct node *newnode=(struct node*)malloc(sizeof(struct node));
@@ -198,3 +205,49 @@ void delete_end(struct node **head)
 	free(p);
 }
 
+OUTPUT:
+
+Enter number of nodes: 5 
+
+Enter data: 1 2 3 4 5
+
+1.)Insert at Begin
+2.)Insert at Middle
+3.)Insert at End
+4.)Display
+5.)Delete at Begin
+6.)Delete at Middle
+7.)Delete at End
+
+Enter your choice : 1 
+
+Enter the Element to be Inserted : 6
+After Insertion:6 1 2 3 4 5 
+
+Enter your choice : 2
+
+Enter the Element to be Inserted : 8
+
+Enter the Position to be Inserted : 3
+After Insertion:6 1 8 2 3 4 5 
+
+Enter your choice : 4 3
+
+Enter the Element to be Inserted : 9
+After Insertion:6 1 8 2 3 4 5 9 
+
+Enter your choice : 4
+6 1 8 2 3 4 5 9 
+
+Enter your choice : 5
+After Deletion:1 8 2 3 4 5 9 
+
+Enter your choice : 6
+Enter the position to be Deleted: 5
+After Deletion:1 8 2 3 5 9 
+
+Enter your choice : 7
+After Deletion:1 8 2 3 5 
+
+Enter your choice : 8
+Program Terminated!!!
